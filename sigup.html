@@ -1,18 +1,264 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Advanced Signup Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  background:linear-gradient(135deg,#e0f2ff,#0d6efd);
+  overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+  width:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:1000;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(12px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  color:white;
+}
+
+header h2{
+  font-size:18px;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:20px;
+  font-weight:500;
+  transition:0.3s;
+}
+
+nav a:hover{
+  color:#d9ecff;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:80px;
+  margin-bottom:80px;
+}
+
+/* SIGNUP BOX */
+.signup-box{
+  width:380px;
+  padding:30px;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(15px);
+  border-radius:15px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.2);
+  color:white;
+  text-align:center;
+  animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.8)}
+  to{opacity:1;transform:scale(1)}
+}
+
+h2{
+  margin-bottom:20px;
+}
+
+.input-box{
+  position:relative;
+  margin:15px 0;
+}
+
+.input-box input{
+  width:100%;
+  padding:12px;
+  border:none;
+  outline:none;
+  border-radius:8px;
+  background:rgba(255,255,255,0.2);
+  color:white;
+}
+
+.input-box label{
+  position:absolute;
+  left:12px;
+  top:12px;
+  font-size:13px;
+  color:#e0e0e0;
+  transition:0.3s;
+  pointer-events:none;
+}
+
+.input-box input:focus + label,
+.input-box input:valid + label{
+  top:-10px;
+  font-size:11px;
+  color:white;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:white;
+  color:#0d6efd;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+  margin-top:10px;
+}
+
+button:hover{
+  transform:scale(1.05);
+  background:#d9ecff;
+}
+
+.msg{
+  margin-top:10px;
+  font-size:13px;
+}
+
+/* FOOTER */
+footer{
+  width:100%;
+  text-align:center;
+  padding:15px;
+  background:rgba(0,0,0,0.3);
+  color:white;
+  backdrop-filter:blur(10px);
+}
+
+/* FLOATING */
+.circle{
+  position:absolute;
+  border-radius:50%;
+  opacity:0.2;
+  animation:float 8s infinite ease-in-out;
+}
+
+.circle:nth-child(1){
+  width:200px;height:200px;
+  background:white;
+  top:15%;left:10%;
+}
+.circle:nth-child(2){
+  width:300px;height:300px;
+  background:#00c6ff;
+  bottom:10%;right:10%;
+  animation-delay:2s;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-20px)}
+}
+</style>
 </head>
 <body>
 
-<div class="container">
-  <h2>Signup</h2>
-  <input id="name" placeholder="Name">
-  <input id="email" placeholder="Email">
-  <input id="password" type="password">
-  <button onclick="signup()">Signup</button>
+<!-- HEADER -->
+<header>
+  <h2>🚀 Task Manager</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Signup</a>
+  </nav>
+</header>
+
+<!-- BACKGROUND -->
+<div class="circle"></div>
+<div class="circle"></div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="signup-box">
+    <h2>Create Account</h2>
+
+    <div class="input-box">
+      <input type="text" id="name" required>
+      <label>Name</label>
+    </div>
+
+    <div class="input-box">
+      <input type="text" id="email" required>
+      <label>Email</label>
+    </div>
+
+    <div class="input-box">
+      <input type="password" id="password" required>
+      <label>Password</label>
+    </div>
+
+    <button onclick="signup()">Signup</button>
+
+    <div class="msg" id="msg"></div>
+  </div>
 </div>
 
-<script src="script.js"></script>
+<!-- FOOTER -->
+<footer>
+  © 2026 Task Manager | All Rights Reserved
+</footer>
+
+<script>
+function signup(){
+  const name=document.getElementById('name').value;
+  const email=document.getElementById('email').value;
+  const password=document.getElementById('password').value;
+  const msg=document.getElementById('msg');
+
+  if(!name || !email || !password){
+    msg.style.color='yellow';
+    msg.innerText='Please fill all fields';
+    return;
+  }
+
+  if(!email.includes('@')){
+    msg.style.color='red';
+    msg.innerText='Invalid Email';
+    return;
+  }
+
+  if(password.length<4){
+    msg.style.color='red';
+    msg.innerText='Password too short';
+    return;
+  }
+
+  msg.style.color='lightgreen';
+  msg.innerText='Signup Successful ✔ Redirecting...';
+
+  setTimeout(()=>{
+    window.location.href='login.html';
+  },1500);
+}
+</script>
+
 </body>
 </html>
