@@ -1,104 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Team Task Manager</title>
+<meta charset="UTF-8">
+<title>Task Manager</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="style.css">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: #f4f4f4;
-    }
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    /* NAVBAR */
-    nav {
-      background: #333;
-      color: white;
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
-    nav h2 {
-      margin: 0;
-    }
+body{
+  background:#f4f7fb;
+  transition:0.3s;
+}
 
-    nav a {
-      color: white;
-      margin-left: 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+/* DARK MODE */
+.dark{
+  background:#121212;
+  color:white;
+}
 
-    nav a:hover {
-      color: yellow;
-    }
+/* NAVBAR */
+nav{
+  background:#0d6efd;
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  padding:15px 40px;
+}
 
-    /* HERO SECTION */
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(to right, #007bff, #00c6ff);
-      color: white;
-    }
+nav a{
+  color:white;
+  margin-left:20px;
+  text-decoration:none;
+}
 
-    .hero h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
+nav a:hover{
+  text-decoration:underline;
+}
 
-    .hero p {
-      font-size: 18px;
-    }
+/* HERO */
+.hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:60px;
+  background:linear-gradient(to right,#0d6efd,#00c6ff);
+  color:white;
+  flex-wrap:wrap;
+}
 
-    .hero button {
-      padding: 12px 20px;
-      margin-top: 20px;
-      background: white;
-      color: #007bff;
-      border: none;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
+.hero img{
+  width:300px;
+  animation:float 3s infinite;
+}
 
-    .hero button:hover {
-      background: #ddd;
-    }
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+  100%{transform:translateY(0)}
+}
 
-    /* FEATURES */
-    .features {
-      display: flex;
-      justify-content: space-around;
-      padding: 40px;
-      flex-wrap: wrap;
-    }
+.hero button{
+  padding:12px 20px;
+  border:none;
+  background:white;
+  color:#0d6efd;
+  cursor:pointer;
+  margin-top:10px;
+  border-radius:5px;
+}
 
-    .card {
-      background: white;
-      padding: 20px;
-      width: 250px;
-      margin: 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
-      text-align: center;
-    }
+/* FEATURES */
+.features{
+  text-align:center;
+  padding:50px;
+}
 
-    /* FOOTER */
-    footer {
-      background: #333;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-  </style>
+.box{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.card{
+  background:white;
+  width:250px;
+  margin:15px;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+}
+
+.card i{
+  font-size:30px;
+  color:#0d6efd;
+}
+
+/* LOGIN BOX */
+.container{
+  max-width:350px;
+  margin:40px auto;
+  background:white;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.container input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+}
+
+.container button{
+  width:100%;
+  padding:10px;
+  background:#0d6efd;
+  color:white;
+  border:none;
+}
+
+/* TASK LIST */
+#list li{
+  background:#eee;
+  margin:5px;
+  padding:8px;
+  border-radius:5px;
+}
+
+/* FOOTER */
+footer{
+  background:#222;
+  color:white;
+  text-align:center;
+  padding:15px;
+}
+</style>
 </head>
 
 <body>
@@ -106,47 +154,131 @@
 <!-- NAVBAR -->
 <nav>
   <h2>🚀 Task Manager</h2>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="login.html">Login</a>
-    <a href="signup.html">Signup</a>
-    <a href="dashboard.html">Dashboard</a>
+  <div
+    <a href="index.html" onclick="showHome()">Home</a>
+    <a href="login.html" onclick="showLogin()">Login</a>
+    <a href="sigup.html" onclick="showSignup()">Signup</a>
+    <a href="dashboard.html" onclick="showDashboard()">Dashboard</a>
+    <span onclick="toggleMode()">🌙</span>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>Manage Your Tasks Efficiently</h1>
-  <p>Create projects, assign tasks, and track progress easily.</p>
-  <button onclick="goToSignup()">Get Started</button>
+<!-- HOME -->
+<section id="home" class="hero">
+  <div>
+    <h1>Manage Tasks Smarter</h1>
+    <p>Boost your productivity easily</p>
+    <button onclick="showLogin()">Get Started</button>
+  </div>
+  <img src="https://cdn-icons-png.flaticon.com/512/9068/9068671.png">
 </section>
 
 <!-- FEATURES -->
 <section class="features">
-  <div class="card">
-    <h3>📋 Task Management</h3>
-    <p>Create and manage tasks easily.</p>
-  </div>
+  <h2>Features</h2>
+  <div class="box">
+    <div class="card"><i class="fas fa-tasks"></i><a href="create-task.html"><h3>Tasks</a>
 
-  <div class="card">
-    <h3>👥 Team Collaboration</h3>
-    <p>Assign tasks to team members.</p>
-  </div>
 
-  <div class="card">
-    <h3>📊 Dashboard</h3>
-    <p>Track progress and status.</p>
+    </h3></div>
+    <div class="card"><i class="fas fa-users"></i><h3><a href="team.html">Team</a></h3></div>
+    <div class="card"><i class="fas fa-chart-line"></i><h3><a href="progress.html">Progress</a></h3></div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- LOGIN -->
+<div id="login" class="container" style="display:none">
+  <h2>Login</h2>
+  <input id="email" placeholder="Email" type="email" required>
+  <input id="password" type="password" placeholder="Password" required>
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- SIGNUP -->
+<div id="signup" class="container" style="display:none">
+  <h2>Signup</h2>
+  <input id="name" placeholder="Name">
+  <input id="email2" placeholder="Email">
+  <input id="password2" type="password" placeholder="Password">
+  <button onclick="signup()">Signup</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="container" style="display:none">
+  <h2>Dashboard</h2>
+  <input id="title" placeholder="Task">
+  <button onclick="createTask()">Add Task</button>
+  <button onclick="loadTasks()">Load Tasks</button>
+  <ul id="list"></ul>
+</div>
+
 <footer>
-  <p>© 2026 Team Task Manager | Made by Anchal</p>
+  <p></p>
 </footer>
 
 <script>
-function goToSignup() {
-  window.location.href = "signup.html";
+const API = "";
+
+// NAVIGATION
+function showHome(){hideAll();document.getElementById("home").style.display="flex";}
+function showLogin(){hideAll();document.getElementById("login").style.display="block";}
+function showSignup(){hideAll();document.getElementById("signup").style.display="block";}
+function showDashboard(){hideAll();document.getElementById("dashboard").style.display="block";}
+function hideAll(){
+  document.getElementById("home").style.display="none";
+  document.getElementById("login").style.display="none";
+  document.getElementById("signup").style.display="none";
+  document.getElementById("dashboard").style.display="none";
+}
+
+// DARK MODE
+function toggleMode(){
+  document.body.classList.toggle("dark");
+}
+
+// AUTH
+async function signup(){
+  const name=document.getElementById("name").value;
+  const email=document.getElementById("email2").value;
+  const password=document.getElementById("password2").value;
+
+  await fetch(API+"/auth/signup",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name,email,password})});
+  alert("Signup Success");
+}
+
+async function login(){
+  const email=document.getElementById("email").value;
+  const password=document.getElementById("password").value;
+
+  const res=await fetch(API+"/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,password})});
+  const data=await res.json();
+
+  if(data.token){
+    localStorage.setItem("token",data.token);
+    showDashboard();
+  }else alert("Login failed");
+}
+
+// TASK
+async function createTask(){
+  const title=document.getElementById("title").value;
+
+  await fetch(API+"/tasks",{method:"POST",headers:{"Content-Type":"application/json","Authorization":localStorage.getItem("token")},body:JSON.stringify({title})});
+  alert("Task added");
+}
+
+async function loadTasks(){
+  const res=await fetch(API+"/tasks",{headers:{"Authorization":localStorage.getItem("token")}});
+  const data=await res.json();
+
+  const list=document.getElementById("list");
+  list.innerHTML="";
+
+  data.forEach(t=>{
+    const li=document.createElement("li");
+    li.innerText=t.title;
+    list.appendChild(li);
+  });
 }
 </script>
 
