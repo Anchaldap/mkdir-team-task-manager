@@ -1,24 +1,276 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Team Task Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:linear-gradient(135deg,#e0f2ff,#0d6efd);
+  color:white;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1000;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(12px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 35px;
+}
+
+header h2{
+  font-size:18px;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:18px;
+  font-weight:500;
+  cursor:pointer;
+}
+
+nav a:hover{
+  color:#d9ecff;
+}
+
+/* MAIN */
+.main{
+  margin-top:90px;
+  padding:20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr;}
+}
+
+.card{
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(15px);
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+input,select{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border:none;
+  border-radius:8px;
+  outline:none;
+}
+
+/* SMALL & STYLISH BUTTON */
+.btn{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+  background:linear-gradient(45deg,#ffffff,#d9ecff);
+  color:#0d6efd;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  font-size:14px;
+}
+
+.btn:hover{
+  transform:scale(1.03);
+  background:white;
+}
+
+/* SMALL LOAD BUTTON (FIXED) */
+.load-btn{
+  width:auto;
+  padding:8px 16px;
+  font-size:13px;
+  border:none;
+  border-radius:20px;
+  background:linear-gradient(45deg,#00c6ff,#0072ff);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  margin-top:10px;
+  transition:0.3s;
+  box-shadow:0 6px 15px rgba(0,0,0,0.25);
+  display:inline-block;
+}
+
+.load-btn:hover{
+  transform:scale(1.05);
+}
+
+ul{
+  list-style:none;
+  margin-top:10px;
+}
+
+li{
+  background:rgba(255,255,255,0.2);
+  padding:10px;
+  margin:8px 0;
+  border-radius:8px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.badge{
+  background:white;
+  color:#0d6efd;
+  padding:3px 8px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+.hidden{display:none;}
+
+footer{
+  text-align:center;
+  padding:15px;
+  margin-top:auto;
+  background:rgba(0,0,0,0.3);
+}
+</style>
 </head>
-<body onload="getTasks()">
+<body>
 
-<nav>
-  <a href="index.html">Home</a>
-</nav>
+<!-- HEADER -->
+<header>
+  <h2>🚀 Team Task Manager</h2>
+  <nav>
+    <a onclick="showDashboard()">Dashboard</a>
+    <a onclick="showProgress()">Team Progress</a>
+    <a href="login.html">Logout</a>
+  </nav>
+</header>
 
-<div class="container">
-  <h2>Dashboard</h2>
+<!-- DASHBOARD VIEW -->
+<div id="dashboardView" class="main">
+  <div class="grid">
 
-  <input id="title" placeholder="Task title">
-  <input id="desc" placeholder="Description">
-  <button onclick="createTask()">Add Task</button>
+    <div class="card">
+      <h3>Add Task</h3>
+      <input id="task" placeholder="Task Title">
+      <select id="team">
+        <option>Frontend</option>
+        <option>Backend</option>
+        <option>AI Team</option>
+      </select>
+      <button class="btn" onclick="addTask()">Add Task</button>
+    </div>
 
-  <ul id="tasks"></ul>
+    <div class="card">
+      <h3>Assign Task</h3>
+      <input id="assignee" placeholder="Assign To">
+      <input id="taskAssign" placeholder="Task">
+      <button class="btn" onclick="assignTask()">Assign Task</button>
+    </div>
+
+    <div class="card" style="grid-column:1/-1;">
+      <h3>Tasks</h3>
+      <button class="load-btn" onclick="loadTasks()">Load Tasks</button>
+      <ul id="list"></ul>
+    </div>
+
+  </div>
 </div>
 
-<script src="script.js"></script>
+<!-- PROGRESS VIEW -->
+<div id="progressView" class="main hidden">
+  <div class="card">
+    <h3>Team Progress</h3>
+    <div id="progressData"></div>
+  </div>
+</div>
+
+<footer>© 2026 Team Task Manager</footer>
+
+<script>
+let tasks=[];
+
+function addTask(){
+  const task=document.getElementById('task').value;
+  const team=document.getElementById('team').value;
+
+  if(!task)return alert('Enter task');
+
+  tasks.push({task,team,status:'Pending'});
+  alert('Task Added');
+}
+
+function assignTask(){
+  const name=document.getElementById('assignee').value;
+  const task=document.getElementById('taskAssign').value;
+
+  if(!name||!task)return alert('Fill all');
+
+  tasks.push({task:task+" → "+name,team:'Assigned',status:'In Progress'});
+  alert('Task Assigned');
+}
+
+function loadTasks(){
+  const list=document.getElementById('list');
+  list.innerHTML='';
+
+  tasks.forEach(t=>{
+    const li=document.createElement('li');
+    li.innerHTML=`${t.task} <span class='badge'>${t.status}</span>`;
+    list.appendChild(li);
+  });
+}
+
+function showDashboard(){
+  document.getElementById('dashboardView').classList.remove('hidden');
+  document.getElementById('progressView').classList.add('hidden');
+}
+
+function showProgress(){
+  document.getElementById('dashboardView').classList.add('hidden');
+  document.getElementById('progressView').classList.remove('hidden');
+
+  const div=document.getElementById('progressData');
+
+  let frontend=tasks.filter(t=>t.team==='Frontend').length;
+  let backend=tasks.filter(t=>t.team==='Backend').length;
+  let ai=tasks.filter(t=>t.team==='AI Team').length;
+
+  div.innerHTML=`
+    <p>Frontend Tasks: ${frontend}</p>
+    <p>Backend Tasks: ${backend}</p>
+    <p>AI Team Tasks: ${ai}</p>
+    <hr>
+    <p>Total Tasks: ${tasks.length}</p>
+  `;
+}
+</script>
+
 </body>
 </html>
