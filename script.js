@@ -1,89 +1,73 @@
-const API = "https://your-5000-url.app.github.dev"; // change this
-
-// SIGNUP
-async function signup() {
-  await fetch(API + "/auth/signup", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
-    })
-  });
-
-  alert("Signup success");
-  window.location.href = "login.html";
-}
+const API = "";
 
 // LOGIN
-async function login() {
-  const res = await fetch(API + "/auth/login", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({
-      email: document.getElementById("email").value,
-      password: document.getElementById("password").value
-    })
+async function login(){
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const res = await fetch(API+"/auth/login",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({email,password})
   });
 
   const data = await res.json();
-  localStorage.setItem("token", data.token);
 
-  alert("Login success");
-  window.location.href = "dashboard.html";
+  if(data.token){
+    localStorage.setItem("token",data.token);
+    window.location.href = "dashboard.html";
+  } else {
+    alert("Login failed");
+  }
 }
 
-// CREATE TASK
-async function createTask() {
-  await fetch(API + "/tasks", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": localStorage.getItem("token")
-    },
-    body: JSON.stringify({
-      title: document.getElementById("title").value,
-      description: document.getElementById("desc").value
-    })
+// SIGNUP
+async function signup(){
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  await fetch(API+"/auth/signup",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({name,email,password})
   });
 
-  alert("Task Added");
-  getTasks();
+  alert("Signup Success");
+  window.location.href = "login.html";
 }
 
-// GET TASKS
-async function getTasks() {
-  const res = await fetch(API + "/tasks", {
-    headers: {
-      "Authorization": localStorage.getItem("token")
+// TASK
+async function createTask(){
+  const title = document.getElementById("title").value;
+
+  await fetch(API+"/tasks",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
+      "Authorization":localStorage.getItem("token")
+    },
+    body:JSON.stringify({title})
+  });
+
+  alert("Task added");
+}
+
+async function loadTasks(){
+  const res = await fetch(API+"/tasks",{
+    headers:{
+      "Authorization":localStorage.getItem("token")
     }
   });
 
-  const tasks = await res.json();
-  const list = document.getElementById("tasks");
+  const data = await res.json();
+
+  const list = document.getElementById("list");
   list.innerHTML = "";
 
-  tasks.forEach(t => {
-    list.innerHTML += `
-      <li>
-        ${t.title} - ${t.status}
-        <button onclick="updateTask('${t._id}','Done')">Done</button>
-      </li>
-    `;
+  data.forEach(t=>{
+    const li = document.createElement("li");
+    li.innerText = t.title;
+    list.appendChild(li);
   });
-}
-
-// UPDATE
-async function updateTask(id, status) {
-  await fetch(API + "/tasks/" + id, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": localStorage.getItem("token")
-    },
-    body: JSON.stringify({ status })
-  });
-
-  getTasks();
 }
