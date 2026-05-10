@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Team Progress Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#e0f2ff,#0d6efd);
+  color:white;
+  overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:1000;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(15px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 35px;
+  animation:slideDown 0.8s ease;
+}
+
+@keyframes slideDown{
+  from{transform:translateY(-100%);opacity:0;}
+  to{transform:translateY(0);opacity:1;}
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  margin-left:18px;
+  font-weight:500;
+}
+
+nav a:hover{
+  color:#d9ecff;
+}
+
+/* MAIN */
+.main{
+  margin-top:100px;
+  padding:20px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr;}
+}
+
+/* CARDS */
+.card{
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(18px);
+  border-radius:15px;
+  padding:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
+  transition:0.4s;
+  animation:fadeIn 1s ease;
+}
+
+.card:hover{
+  transform:translateY(-8px) scale(1.02);
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(0.9);}
+  to{opacity:1;transform:scale(1);}
+}
+
+/* PROGRESS BAR */
+.bar{
+  width:100%;
+  height:10px;
+  background:rgba(255,255,255,0.3);
+  border-radius:20px;
+  margin:8px 0;
+  overflow:hidden;
+}
+
+.fill{
+  height:100%;
+  border-radius:20px;
+  animation:fillAnim 2s ease forwards;
+}
+
+@keyframes fillAnim{
+  from{width:0;}
+}
+
+/* COLORS */
+.green{background:#00ffb3;}
+.blue{background:#00c6ff;}
+.orange{background:#ffb347;}
+.red{background:#ff4d6d;}
+
+/* STATS */
+.stat{
+  display:flex;
+  justify-content:space-between;
+  padding:8px;
+  margin:6px 0;
+  background:rgba(255,255,255,0.2);
+  border-radius:8px;
+  transition:0.3s;
+}
+
+.stat:hover{
+  transform:scale(1.03);
+}
+
+/* TITLE */
+.title{
+  text-align:center;
+  margin-bottom:20px;
+  animation:fadeIn 1s ease;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:15px;
+  margin-top:30px;
+  background:rgba(0,0,0,0.3);
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>🚀 Team Progress</h2>
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="team.html">Team</a>
+    <a href="create-task.html">Create Task</a>
+  </nav>
+</header>
+
+<div class="main">
+
+  <div class="title">
+    <h2>📊 Live Project Progress Dashboard</h2>
+    <p>Real-time team performance analytics</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- TASK STATUS -->
+    <div class="card">
+      <h3>Task Status</h3>
+
+      <div class="stat"><span>Pending</span><span>40%</span></div>
+      <div class="bar"><div class="fill orange" style="width:40%"></div></div>
+
+      <div class="stat"><span>In Progress</span><span>30%</span></div>
+      <div class="bar"><div class="fill blue" style="width:30%"></div></div>
+
+      <div class="stat"><span>Completed</span><span>30%</span></div>
+      <div class="bar"><div class="fill green" style="width:30%"></div></div>
+    </div>
+
+    <!-- TEAM DISTRIBUTION GRAPH -->
+    <div class="card">
+      <h3>Team Performance Graph 📈</h3>
+
+      
+
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Team Task Manager | Animated Progress System
+</footer>
+
+</body>
+</html>
