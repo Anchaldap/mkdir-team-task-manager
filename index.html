@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Team Task Manager</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #f4f4f4;
+    }
+
+    /* NAVBAR */
+    nav {
+      background: #333;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h2 {
+      margin: 0;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: yellow;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(to right, #007bff, #00c6ff);
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+    }
+
+    .hero button {
+      padding: 12px 20px;
+      margin-top: 20px;
+      background: white;
+      color: #007bff;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .hero button:hover {
+      background: #ddd;
+    }
+
+    /* FEATURES */
+    .features {
+      display: flex;
+      justify-content: space-around;
+      padding: 40px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      width: 250px;
+      margin: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      text-align: center;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <h2>🚀 Task Manager</h2>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Signup</a>
+    <a href="dashboard.html">Dashboard</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Manage Your Tasks Efficiently</h1>
+  <p>Create projects, assign tasks, and track progress easily.</p>
+  <button onclick="goToSignup()">Get Started</button>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="card">
+    <h3>📋 Task Management</h3>
+    <p>Create and manage tasks easily.</p>
+  </div>
+
+  <div class="card">
+    <h3>👥 Team Collaboration</h3>
+    <p>Assign tasks to team members.</p>
+  </div>
+
+  <div class="card">
+    <h3>📊 Dashboard</h3>
+    <p>Track progress and status.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Team Task Manager | Made by Anchal</p>
+</footer>
+
+<script>
+function goToSignup() {
+  window.location.href = "signup.html";
+}
+</script>
+
+</body>
+</html>

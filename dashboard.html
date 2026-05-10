@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body onload="getTasks()">
+
+<nav>
+  <a href="index.html">Home</a>
+</nav>
+
+<div class="container">
+  <h2>Dashboard</h2>
+
+  <input id="title" placeholder="Task title">
+  <input id="desc" placeholder="Description">
+  <button onclick="createTask()">Add Task</button>
+
+  <ul id="tasks"></ul>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
